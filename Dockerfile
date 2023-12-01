@@ -60,7 +60,7 @@ COPY --chown=node:node --from=build /usr/src/app/node_modules ./node_modules
 COPY --chown=node:node . .
 
 # Expose port 3001
-EXPOSE 3001
+EXPOSE 3000
 
 # Start the server using the production build
 CMD [ "npm", "start" ]
