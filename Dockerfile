@@ -2,7 +2,7 @@
 # BUILD FOR LOCAL DEVELOPMENT
 ###################
 
-FROM node:18-alpine As development
+FROM node:16-alpine As development
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -25,7 +25,7 @@ USER node
 # BUILD FOR PRODUCTION
 ###################
 
-FROM node:18-alpine As build
+FROM node:16-alpine As build
 
 WORKDIR /usr/src/app
 
@@ -37,7 +37,7 @@ COPY --chown=node:node --from=development /usr/src/app/node_modules ./node_modul
 COPY --chown=node:node . .
 
 # Run the build command which creates the production bundle
-#RUN npm run build
+RUN npm run build
 
 # Set NODE_ENV environment variable
 ENV NODE_ENV production
@@ -53,7 +53,7 @@ USER node
 # Create app directory
 WORKDIR /usr/src/app
 
-FROM node:18-alpine As production
+FROM node:16-alpine As production
 
 # Copy the bundled code from the build stage to the production image
 COPY --chown=node:node --from=build /usr/src/app/node_modules ./node_modules
